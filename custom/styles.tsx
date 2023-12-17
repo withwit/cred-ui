@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   // App
@@ -10,21 +11,37 @@ const styles = StyleSheet.create({
   main: {
     flex: 1000,
     backgroundColor: 'red',
+    position: 'relative',
+    zIndex: 0,
   },
   //TopBar
   topbar: {
-    flex: 2,
-    backgroundColor: 'peach',
+    position: 'absolute',
+    backgroundColor: '#000eee',
+    top: 0,
+    zIndex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  notch: {
+    backgroundColor: 'yellow',
   },
   //ScrollBox
   scrollbox: {
-    flex: 988,
+    position: 'absolute',
     backgroundColor: 'grey',
+    zIndex: 0,
+    width: '100%',
+    height: '100%',
   },
   //BottomBar
   bottombar: {
-    flex: 10,
+    position: 'absolute',
     backgroundColor: 'green',
+    zIndex: 2,
+    bottom: 0,
+    width: '100%',
   },
 });
 
