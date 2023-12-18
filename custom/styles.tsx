@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e9e5',
     position: 'relative',
     zIndex: 0,
+    alignItems: 'center',
   },
   //TopBar
   topbar: {
@@ -119,11 +120,30 @@ const styles = StyleSheet.create({
   },
   //BottomBar
   bottombar: {
-    position: 'absolute',
-    backgroundColor: 'green',
+    width: WIDTH * 0.5,
+    height: HEIGHT * 0.6,
+    borderRadius: 150,
+    transform: [{scaleX: 3.2}],
+    opacity: 1,
+    elevation: 50,
+    flexDirection: 'row',
+    // backgroundColor: '#fef1ec',
+    backgroundColor: 'red',
+    paddingLeft: 2,
     zIndex: 4,
-    bottom: 0,
-    width: WIDTH,
+    top: HEIGHT * 0.002,
+  },
+  bottombarItems: {
+    backgroundColor: 'grey',
+    flexDirection: 'row',
+    flex: 10,
+    zIndex: 10,
+  },
+  camera: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+    zIndex: 10,
   },
 });
 

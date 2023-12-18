@@ -1,7 +1,7 @@
 import {Text, View} from 'react-native';
 import styles from '../styles';
 import TopBar from './topbar';
-import BottomBar from './bottombar';
+import BottomBarItems from './bottombaritems';
 import ScrollBox from './scrollbox';
 import OfferPill from '../components/offerpill';
 
@@ -11,7 +11,8 @@ export default function Main() {
       <TopBar />
       <OfferPill />
       <ScrollBox />
-      <BottomBar />
+      <BottomBarItems />
+      <View style={styles.bottombar} />
     </View>
   );
 }
