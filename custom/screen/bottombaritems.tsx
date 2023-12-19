@@ -3,7 +3,8 @@ import {
   TouchableNativeFeedback,
   View,
   Image,
-  StyleSheet,
+  FlatList,
+  SectionList,
 } from 'react-native';
 import styles from '../styles';
 import Animated, {
@@ -21,15 +22,13 @@ import {
   useCameraPermission,
   useCodeScanner,
 } from 'react-native-vision-camera';
+import {useState} from 'react';
 
 export default function BottomBarItems() {
   const {hasPermission, requestPermission} = useCameraPermission();
   if (!hasPermission) {
     requestPermission();
   }
-  const scan = () => {
-    openbbar.value = openbbar.value == true ? false : true;
-  };
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
@@ -39,10 +38,40 @@ export default function BottomBarItems() {
   const devices = useCameraDevices();
   const device: CameraDevice = getCameraDevice(devices, 'back');
   const openbbar = useSharedValue(false);
+  const showcontacts = useSharedValue(false);
+  const [cam, tooglecam] = useState(false);
+
   const openclosestyle = useAnimatedStyle(() => ({
     top: openbbar.value == true ? withTiming('0%') : withTiming('80%'),
   }));
-
+  const openclosecontact = useAnimatedStyle(() => ({
+    height:
+      showcontacts.value == true
+        ? withTiming('100%', {duration: 600})
+        : withTiming('0%', {duration: 600}),
+  }));
+  const scan = () => {
+    if (showcontacts.value == true) {
+      showcontacts.value = false;
+      tooglecam(true);
+    } else {
+      openbbar.value = openbbar.value == true ? false : true;
+      if (cam == true) {
+        tooglecam(false);
+      } else {
+        tooglecam(true);
+      }
+    }
+  };
+  const opencontacts = () => {
+    if (cam == true) {
+      tooglecam(false);
+      showcontacts.value = true;
+    } else {
+      openbbar.value = openbbar.value == true ? false : true;
+      showcontacts.value = showcontacts.value == true ? false : true;
+    }
+  };
   return (
     <View style={[styles.bottom_main]}>
       <Animated.View style={[styles.bottombarItems, openclosestyle]}>
@@ -64,7 +93,7 @@ export default function BottomBarItems() {
             <Text style={{color: '#000'}}>SCAN & PAY</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={scan}>
+        <TouchableNativeFeedback>
           <View style={{alignItems: 'center', top: '-2.5%'}}>
             <View
               style={{
@@ -92,7 +121,7 @@ export default function BottomBarItems() {
             </Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={scan}>
+        <TouchableNativeFeedback onPress={opencontacts}>
           <View style={{alignItems: 'center', top: '2%'}}>
             <View
               style={{
@@ -112,11 +141,33 @@ export default function BottomBarItems() {
         </TouchableNativeFeedback>
         <Camera
           device={device}
-          isActive={openbbar.value}
-          style={styles.camera}
+          isActive={cam}
+          style={[
+            styles.camera,
+            {width: cam == true ? styles.camera.width : 0},
+          ]}
           codeScanner={codeScanner}
         />
+        <Animated.FlatList
+          style={[styles.list, openclosecontact]}
+          data={[
+            {key: 'Devin'},
+            {key: 'Dan'},
+            {key: 'Dominic'},
+            {key: 'Jackson'},
+            {key: 'James'},
+            {key: 'Joel'},
+            {key: 'John'},
+            {key: 'Jillian'},
+            {key: 'Jimmy'},
+            {key: 'Julie'},
+          ]}
+          renderItem={({item}) => (
+            <Text style={styles.listitem}>{item.key}</Text>
+          )}
+        />
       </Animated.View>
+
       <Animated.View style={[styles.bottombar, openclosestyle]} />
     </View>
   );

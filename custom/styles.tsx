@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     transform: [{scaleX: 3.2}],
     opacity: 1,
     elevation: 10,
-    backgroundColor: '#fef1ec',
+    backgroundColor: '#e5e5e5',
     zIndex: 10,
     position: 'absolute',
     left: '26%',
@@ -157,6 +157,33 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '35%',
     left: WIDTH * 0.3,
+  },
+  list: {
+    position: 'absolute',
+    top: '20%',
+    left: WIDTH * 0.3,
+    height: '100%',
+    width: WIDTH,
+  },
+  listitem: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    color: '#000',
+  },
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
 });
 
