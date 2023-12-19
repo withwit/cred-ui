@@ -36,7 +36,7 @@ export default function BottomBarItems() {
     },
   });
   const devices = useCameraDevices();
-  const device: CameraDevice = getCameraDevice(devices, 'back');
+  const device: any = getCameraDevice(devices, 'back');
   const openbbar = useSharedValue(false);
   const showcontacts = useSharedValue(false);
   const [cam, tooglecam] = useState(false);
