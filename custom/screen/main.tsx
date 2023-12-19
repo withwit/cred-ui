@@ -12,7 +12,6 @@ export default function Main() {
       <OfferPill />
       <ScrollBox />
       <BottomBarItems />
-      <View style={styles.bottombar} />
     </View>
   );
 }

@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {
   Camera,
+  CameraDevice,
   getCameraDevice,
   getCameraFormat,
   useCameraDevices,
@@ -26,15 +27,9 @@ export default function BottomBarItems() {
   if (!hasPermission) {
     requestPermission();
   }
-  const openbbar = useSharedValue(false);
   const scan = () => {
     openbbar.value = openbbar.value == true ? false : true;
   };
-
-  const openclosestyle = useAnimatedStyle(() => ({
-    top: openbbar.value == true ? withTiming('75%') : withTiming('170%'),
-  }));
-
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
@@ -42,79 +37,87 @@ export default function BottomBarItems() {
     },
   });
   const devices = useCameraDevices();
-  const device = getCameraDevice(devices, 'back');
+  const device: CameraDevice = getCameraDevice(devices, 'back');
+  const openbbar = useSharedValue(false);
+  const openclosestyle = useAnimatedStyle(() => ({
+    top: openbbar.value == true ? withTiming('0%') : withTiming('80%'),
+  }));
 
   return (
-    <>
+    <View style={[styles.bottom_main]}>
       <Animated.View style={[styles.bottombarItems, openclosestyle]}>
         <TouchableNativeFeedback onPress={scan}>
-          <View
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: 'green',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Image
-              style={{transform: [{scale: 0.3}], top: 10}}
-              source={require('../assets/scan.png')}
-            />
-            <Text style={{}}>SCAN & PAY</Text>
+          <View style={{alignItems: 'center', top: '4%'}}>
+            <View
+              style={{
+                width: 100,
+                height: 70,
+                // backgroundColor: 'green',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={{transform: [{scale: 0.2}]}}
+                source={require('../assets/scan.png')}
+              />
+            </View>
+            <Text style={{color: '#000'}}>SCAN & PAY</Text>
           </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback onPress={scan}>
-          <View
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: 'red',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Image
-              style={[
-                {
-                  transform: [{scale: 0.3}],
-                },
-                {top: '20%'},
-              ]}
-              source={require('../assets/profile.png')}
-            />
+          <View style={{alignItems: 'center', top: '-2.5%'}}>
+            <View
+              style={{
+                width: 100,
+                height: 100,
+                // backgroundColor: 'red',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={[
+                  {
+                    transform: [{scale: 0.3}],
+                  },
+                ]}
+                source={require('../assets/profile.png')}
+              />
+            </View>
             <Text
               style={{
-                left: '0%',
-                bottom: '0%',
                 fontWeight: 'bold',
+                color: '#000',
               }}>
               ANMOL SAHU
             </Text>
           </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback onPress={scan}>
-          <View
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: 'cyan',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Image
-              style={{transform: [{scale: 0.3}], top: '20%'}}
-              source={require('../assets/contacts.png')}
-            />
-            <Text style={{}}>PAY CONTACTS</Text>
+          <View style={{alignItems: 'center', top: '2%'}}>
+            <View
+              style={{
+                width: 100,
+                height: 80,
+                // backgroundColor: 'cyan',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={{transform: [{scale: 0.21}]}}
+                source={require('../assets/contacts.png')}
+              />
+            </View>
+            <Text style={{color: '#000'}}>PAY CONTACTS</Text>
           </View>
         </TouchableNativeFeedback>
+        <Camera
+          device={device}
+          isActive={openbbar.value}
+          style={styles.camera}
+          codeScanner={codeScanner}
+        />
       </Animated.View>
-      <Camera
-        device={device}
-        isActive={true}
-        style={styles.camera}
-        codeScanner={codeScanner}
-      />
       <Animated.View style={[styles.bottombar, openclosestyle]} />
-    </>
+    </View>
   );
 }
