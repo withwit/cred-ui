@@ -23,6 +23,7 @@ import {
   useCodeScanner,
 } from 'react-native-vision-camera';
 import {useState} from 'react';
+import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 export default function BottomBarItems() {
   const {hasPermission, requestPermission} = useCameraPermission();
@@ -41,14 +42,24 @@ export default function BottomBarItems() {
   const showcontacts = useSharedValue(false);
   const [cam, tooglecam] = useState(false);
 
-  const openclosestyle = useAnimatedStyle(() => ({
-    top: openbbar.value == true ? withTiming('0%') : withTiming('80%'),
+  // const openclosestyle = useAnimatedStyle(() => ({
+  //   top: openbbar.value == true ? withTiming('0%') : withTiming('50%'),
+  // }));
+  const setbarheight = useAnimatedStyle(() => ({
+    height:
+      openbbar.value == true
+        ? withTiming('60%', {duration: 200})
+        : withTiming('10%', {duration: 300}),
   }));
   const openclosecontact = useAnimatedStyle(() => ({
     height:
       showcontacts.value == true
         ? withTiming('100%', {duration: 600})
-        : withTiming('0%', {duration: 600}),
+        : withTiming('0%', {duration: 200}),
+    opacity:
+      showcontacts.value == true
+        ? withTiming(1, {duration: 1400})
+        : withTiming(0, {duration: 600}),
   }));
   const scan = () => {
     if (showcontacts.value == true) {
@@ -64,17 +75,18 @@ export default function BottomBarItems() {
     }
   };
   const opencontacts = () => {
+    console.log('pressed');
     if (cam == true) {
       tooglecam(false);
       showcontacts.value = true;
-    } else {
-      openbbar.value = openbbar.value == true ? false : true;
-      showcontacts.value = showcontacts.value == true ? false : true;
+      return;
     }
+    openbbar.value = openbbar.value == true ? false : true;
+    showcontacts.value = showcontacts.value == true ? false : true;
   };
   return (
-    <View style={[styles.bottom_main]}>
-      <Animated.View style={[styles.bottombarItems, openclosestyle]}>
+    <Animated.View style={[styles.bottom_main, setbarheight]}>
+      <Animated.View style={[styles.bottombarItems]}>
         <TouchableNativeFeedback onPress={scan}>
           <View style={{alignItems: 'center', top: '4%'}}>
             <View
@@ -161,6 +173,15 @@ export default function BottomBarItems() {
             {key: 'Jillian'},
             {key: 'Jimmy'},
             {key: 'Julie'},
+            {key: 'Dan1'},
+            {key: 'Dominic1'},
+            {key: 'Jackson1'},
+            {key: 'James1'},
+            {key: 'Joela'},
+            {key: 'Johna'},
+            {key: 'Jilliana'},
+            {key: 'Jimamy'},
+            {key: 'Julaie'},
           ]}
           renderItem={({item}) => (
             <Text style={styles.listitem}>{item.key}</Text>
@@ -168,7 +189,7 @@ export default function BottomBarItems() {
         />
       </Animated.View>
 
-      <Animated.View style={[styles.bottombar, openclosestyle]} />
-    </View>
+      <Animated.View style={[styles.bottombar]} />
+    </Animated.View>
   );
 }

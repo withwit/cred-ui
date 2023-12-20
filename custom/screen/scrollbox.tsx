@@ -16,7 +16,6 @@ export default function ScrollBox() {
   const displacement = useSharedValue(0);
   const pan = Gesture.Pan()
     .onChange(event => {
-      // console.log(event.changeY);
       displacement.value += event.changeY;
     })
     .onFinalize(event => {
