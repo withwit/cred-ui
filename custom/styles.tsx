@@ -184,6 +184,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  alert: {
+    color: 'red',
+  },
 });
 
 export default styles;
