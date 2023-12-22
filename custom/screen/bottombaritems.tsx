@@ -3,8 +3,6 @@ import {
   TouchableNativeFeedback,
   View,
   Image,
-  FlatList,
-  SectionList,
   ToastAndroid,
   Alert,
 } from 'react-native';
@@ -12,14 +10,11 @@ import styles from '../styles';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import {
   Camera,
-  CameraDevice,
   getCameraDevice,
-  getCameraFormat,
   useCameraDevices,
   useCameraPermission,
   useCodeScanner,
@@ -31,53 +26,40 @@ export default function BottomBarItems() {
   if (!hasPermission) {
     requestPermission();
   }
-  // upi://pay?pa=9589611246@paytm&pn=Anmol%20Sahu&mc=0000&mode=02&purpose=00&orgid=159761&cust=156319738
-  // upi://pay?pa=anmolsahu007.as-2@okhdfcbank&pn=Anmol%20Sahu&aid=uGICAgIC14cvMCQ
-
   const showAlert = (n: String, id: String) => {
-    Alert.alert(
-      '',
-      'Scanned to pay ' + n + ' for UPI:\n' + id,
-      [
-        // {
-        //   text: 'Cancel',
-        //   onPress: () => Alert.alert('Cancel Pressed'),
-        //   style: 'cancel',
-        // },
-      ],
-      {
-        cancelable: true,
-        // onDismiss: () => tooglecam(true),
-      },
-    );
+    Alert.alert('', 'Scanned to pay ' + n + ' for UPI:\n' + id, [], {
+      cancelable: true,
+      // onDismiss: () => tooglecam(true),
+    });
   };
-
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
-
     onCodeScanned: codes => {
+      console.log(isscaned);
+      if (isscaned == true) {
+        openbbar.value = false;
+        tooglecam(false);
+        return;
+      }
+      tooglescan(true);
       tooglecam(false);
       openbbar.value = false;
       const s = codes[0].value;
-      const name = s?.indexOf('&pn=');
-      console.log(name, '0000000');
+      const name = s?.indexOf('&pn=') ? s?.indexOf('&pn=') : 0;
       if (name == -1) {
         ToastAndroid.showWithGravity(
-          "😖It's not what i think it is.",
-          ToastAndroid.SHORT,
+          "   It's not what i think it is.    \n                  😖",
+          ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
-        openbbar.value = false;
         return;
       }
-
-      const upi = s?.indexOf('?pa=');
-      const end = s?.indexOf('&mc');
-      const n = s?.slice(name + 4, end).replace('%20', ' ');
-      const id = s?.slice(upi + 4, name);
+      const upi = s?.indexOf('?pa=') ? s?.indexOf('?pa=') : 0;
+      const end = s?.indexOf('&mc') ? s?.indexOf('&mc') : 0;
+      const n = s ? s?.slice(name + 4, end).replace('%20', ' ') : '';
+      const id = s ? s?.slice(upi + 4, name) : '';
       console.log(upi, name, end);
       showAlert(n, id);
-
       return;
     },
   });
@@ -86,10 +68,7 @@ export default function BottomBarItems() {
   const openbbar = useSharedValue(false);
   const showcontacts = useSharedValue(false);
   const [cam, tooglecam] = useState(false);
-
-  // const openclosestyle = useAnimatedStyle(() => ({
-  //   top: openbbar.value == true ? withTiming('0%') : withTiming('50%'),
-  // }));
+  const [isscaned, tooglescan] = useState(false);
   const setbarheight = useAnimatedStyle(() => ({
     height:
       openbbar.value == true
@@ -107,6 +86,7 @@ export default function BottomBarItems() {
         : withTiming(0, {duration: 600}),
   }));
   const scan = () => {
+    tooglescan(false);
     if (showcontacts.value == true) {
       showcontacts.value = false;
       tooglecam(true);
@@ -233,7 +213,6 @@ export default function BottomBarItems() {
           )}
         />
       </Animated.View>
-
       <Animated.View style={[styles.bottombar]} />
     </Animated.View>
   );

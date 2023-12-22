@@ -187,6 +187,11 @@ const styles = StyleSheet.create({
   alert: {
     color: 'red',
   },
+  barcodeTextURL: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
