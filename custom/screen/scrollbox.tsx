@@ -11,6 +11,8 @@ import Animated, {
   withDecay,
   withTiming,
 } from 'react-native-reanimated';
+import Cards from 'react-credit-cards-2';
+import CCard from '../components/ccardwithdrum';
 
 export default function ScrollBox() {
   const displacement = useSharedValue(0);
@@ -291,6 +293,8 @@ export default function ScrollBox() {
               />
             </View>
           </View>
+
+          <CCard />
         </Animated.View>
       </GestureDetector>
     </GestureHandlerRootView>

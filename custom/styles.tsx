@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {rgbaColor} from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -12,12 +13,12 @@ const styles = StyleSheet.create({
   // App
   safeareaview: {
     flex: 1000,
-    backgroundColor: '#f8e9e5',
+    backgroundColor: '#faf1ee',
   },
   //Main
   main: {
     flex: 1000,
-    backgroundColor: '#f8e9e5',
+    backgroundColor: '#faf1ee',
     position: 'relative',
     zIndex: 0,
     alignItems: 'center',
@@ -55,15 +56,15 @@ const styles = StyleSheet.create({
   scrollbox_root: {
     position: 'absolute',
     width: WIDTH,
-    height: HEIGHT,
+    height: HEIGHT * 1.2,
     zIndex: 2,
   },
   scrollbox: {
     width: WIDTH,
     height: HEIGHT * 1.2,
-    borderRadius: WIDTH * 0.035,
+    borderRadius: WIDTH * 0.05,
     alignItems: 'center',
-    top: HEIGHT * 0.042,
+    top: HEIGHT * 0.06,
     backgroundColor: '#f8e9e5',
   },
   card: {
@@ -124,8 +125,8 @@ const styles = StyleSheet.create({
     height: HEIGHT * 0.1,
     borderRadius: 350,
     transform: [{scaleX: 2.5}],
-    opacity: 1,
-    backgroundColor: '#e5e5e5',
+    opacity: 0.8,
+    backgroundColor: '#faf1ee',
     zIndex: 10,
     position: 'absolute',
     left: '25%',
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   bottom_main: {
     flexDirection: 'row',
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#faf1ee',
     zIndex: 10,
     opacity: 0.95,
     width: WIDTH,
@@ -159,16 +160,17 @@ const styles = StyleSheet.create({
   },
   list: {
     position: 'absolute',
-    top: '20%',
-    left: WIDTH * 0.3,
-    height: '100%',
+    top: '-9%',
+    // left: -WIDTH * 0.015,
     width: WIDTH,
-    overflow: 'scroll',
+    // backgroundColor: 'grey',
+    transform: [{rotateX: '65deg'}, {scaleY: 1.67}],
   },
   listitem: {
     padding: 10,
-    fontSize: 38,
+    fontSize: 39,
     color: '#000',
+    backgroundColor: 'rgba(0, 0, 0, 0.025)',
   },
   sectionHeader: {
     paddingTop: 2,

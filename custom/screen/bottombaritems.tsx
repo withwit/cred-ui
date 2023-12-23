@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import styles from '../styles';
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -78,12 +79,12 @@ export default function BottomBarItems() {
   const openclosecontact = useAnimatedStyle(() => ({
     height:
       showcontacts.value == true
-        ? withTiming('100%', {duration: 600})
-        : withTiming('0%', {duration: 200}),
+        ? withTiming('100%', {duration: 400})
+        : withTiming('0%', {duration: 700}),
     opacity:
       showcontacts.value == true
-        ? withTiming(1, {duration: 1400})
-        : withTiming(0, {duration: 600}),
+        ? withTiming(1, {duration: 5000, easing: Easing.inOut(Easing.sin)})
+        : withTiming(0, {duration: 150}),
   }));
   const scan = () => {
     tooglescan(false);
@@ -187,26 +188,31 @@ export default function BottomBarItems() {
         />
         <Animated.FlatList
           style={[styles.list, openclosecontact]}
+          contentContainerStyle={[
+            {justifyContent: 'center', alignItems: 'center'},
+          ]}
+          showsVerticalScrollIndicator={false}
           data={[
-            {key: 'Devin'},
-            {key: 'Dan'},
-            {key: 'Dominic'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-            {key: 'Dan1'},
-            {key: 'Dominic1'},
-            {key: 'Jackson1'},
-            {key: 'James1'},
-            {key: 'Joela'},
-            {key: 'Johna'},
-            {key: 'Jilliana'},
-            {key: 'Jimamy'},
-            {key: 'Julaie'},
+            {key: 'Ankur Mitra'},
+            {key: 'Abhijeet Tabla'},
+            {key: 'Akash Saxena'},
+            {key: 'Adarsh Goyal'},
+            {key: 'Ankit Jain'},
+            {key: 'Bhavesh Sharma'},
+            {key: 'Akshay cc Advani'},
+            {key: 'Ayanshu Kamper'},
+            {key: 'Deepika Iyer'},
+            {key: 'Ayushi Vinodia'},
+            {key: 'Ayush Mitra'},
+            {key: 'Abhinav Sahu'},
+            {key: 'Mummy'},
+            {key: 'Papa'},
+            {key: 'Saksham Sahu'},
+            {key: 'Avinash was'},
+            {key: 'Ayush SSD'},
+            {key: 'Ashish Debanath'},
+            {key: 'Aditya Tiwari'},
+            {key: 'Enosh😖BFF'},
           ]}
           renderItem={({item}) => (
             <Text style={styles.listitem}>{item.key}</Text>
