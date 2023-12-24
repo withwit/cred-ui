@@ -27,15 +27,19 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-
 const _size = width * 0.9;
 const layout = {
   borderRadius: 16,
   width: _size,
-  height: _size * 0.7,
-  spacing: 12,
+  height: _size * 0.6,
+  spacing: 16,
   cardsGap: 22,
 };
+var Drum = require('react-native-sound');
+Drum.setCategory('Playback');
+var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, error => {
+  drum.play();
+});
 
 function Card({
   info,
@@ -68,64 +72,99 @@ function Card({
 
   return (
     <Animated.View style={[styles.card, cstyle]}>
-      <Text
-        style={[
-          styles.title,
-          {
-            position: 'absolute',
-            top: -layout.spacing,
-            right: layout.spacing,
-            fontSize: 102,
-            color: '#000',
-            opacity: 0.5,
-          },
-        ]}>
-        {index}
-      </Text>
-      <View style={styles.cardContent}>
-        <Text style={styles.title}>{info.cname}</Text>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{info.type}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{info.holder}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{info.last4}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{info.due}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{info.duedt}</Text>
-        </View>
-        <Button title="Pay Now" />
+      <View style={{flexDirection: 'column', top: 25, right: 10}}>
+        <Text style={[styles.cnum, {top: 0}]}>{'XXXX'}</Text>
+        <Text style={[styles.cnum, {top: 30}]}>{'XXXX'}</Text>
+        <Text
+          style={[
+            styles.cnum,
+            {
+              top: 15,
+              right: 15,
+              letterSpacing: 2,
+              fontWeight: '900',
+              color: '#fff',
+              opacity: 1,
+              borderWidth: 5,
+              borderRadius: 20,
+              borderColor: '#fff',
+            },
+          ]}>
+          {info.last4}
+        </Text>
       </View>
-      <Image
-        style={[
-          {
-            height: '110%',
-            width: '108%',
+      <View style={styles.cardContent}>
+        <View
+          style={{
+            backgroundColor: '#EAECCC',
+            opacity: 0.1,
+            width: '100%',
+            height: '100%',
             position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: -1,
-          },
-        ]}
-        source={info.cover}
-      />
+            top: '0%',
+          }}
+        />
+        <Text style={styles.cname}>{info.cname}</Text>
+        <Text style={styles.name}>{info.holder}</Text>
+        <Text style={[styles.rest, {fontWeight: '600', fontSize: 24}]}>
+          {'₹' + info.due}
+        </Text>
+        <View style={styles.row}>
+          <Text
+            style={[
+              styles.rest,
+              {
+                textTransform: 'uppercase',
+                fontWeight: '300',
+                backgroundColor: '#B06161',
+                color: '#fff',
+                padding: 4,
+                paddingTop: 6,
+              },
+            ]}>
+            {'  Due in ' + info.duedt + ' days  '}
+          </Text>
+          <View style={{width: 10}} />
+          <Text
+            style={[
+              styles.rest,
+              {
+                textTransform: 'uppercase',
+                fontWeight: '300',
+                backgroundColor: '#000',
+                opacity: 0.7,
+                color: '#fff',
+                padding: 4,
+                paddingTop: 6,
+              },
+            ]}>
+            {' Pay Now  '}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            bottom: '2%',
+            left: '84%',
+            position: 'absolute',
+            opacity: 0.75,
+          }}>
+          <Image
+            style={{
+              height: 40,
+              width: 50,
+              resizeMode: 'contain',
+            }}
+            source={info.type}
+          />
+        </View>
+      </View>
     </Animated.View>
   );
 }
 
-var Drum = require('react-native-sound');
-Drum.setCategory('Playback');
-var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, error => {
-  drum.play();
-});
 export default function CCard() {
   const sharedval = useSharedValue(0);
-  const displacement = useSharedValue(0);
   const _drum = args => {
     console.log(args);
     drum.play();
@@ -197,7 +236,7 @@ export default function CCard() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 50,
+    bottom: -100,
     left: -18,
     height: '10%',
     paddingTop: 10,
@@ -207,7 +246,6 @@ const styles = StyleSheet.create({
     borderRadius: layout.borderRadius,
     width: layout.width,
     height: layout.height,
-    padding: layout.spacing,
     backgroundColor: '#faf1ee',
     elevation: 10,
     opacity: 1,
@@ -216,17 +254,39 @@ const styles = StyleSheet.create({
     left: 30,
     overflow: 'hidden',
   },
-  title: {fontSize: 32, fontWeight: '600', color: '#000'},
-  subtitle: {fontSize: 12, fontWeight: '600', color: '#000'},
+  cname: {fontSize: 36, fontWeight: '600', color: '#B06161'},
+  name: {
+    top: 5,
+    fontSize: 24,
+    fontWeight: '400',
+    letterSpacing: 3,
+    color: '#000',
+  },
+  cnum: {
+    fontWeight: '600',
+    position: 'absolute',
+    right: layout.spacing,
+    fontSize: 70,
+    color: '#DC8686',
+    opacity: 1,
+  },
+  rest: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#607274',
+    letterSpacing: 1,
+  },
   cardContent: {
     gap: layout.spacing,
-    marginBottom: layout.spacing,
-    color: '#000',
+    // marginBottom: layout.spacing,
+    color: '#607274',
+    height: '100%',
+    width: '100%',
+    left: 5,
   },
   row: {
     flexDirection: 'row',
     columnGap: layout.spacing / 2,
     alignItems: 'center',
   },
-  icon: {},
 });

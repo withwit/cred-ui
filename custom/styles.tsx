@@ -3,6 +3,14 @@ import {rgbaColor} from 'react-native-reanimated/lib/typescript/reanimated2/Colo
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
+const _size = WIDTH * 0.9;
+const layout = {
+  borderRadius: 16,
+  width: _size,
+  height: _size * 0.6,
+  spacing: 12,
+  cardsGap: 22,
+};
 
 const styles = StyleSheet.create({
   //Device
@@ -56,16 +64,18 @@ const styles = StyleSheet.create({
   scrollbox_root: {
     position: 'absolute',
     width: WIDTH,
-    height: HEIGHT * 1.2,
+    height: HEIGHT * 1.5,
     zIndex: 2,
+    overflow: 'hidden',
   },
   scrollbox: {
     width: WIDTH,
-    height: HEIGHT * 1.2,
+    height: HEIGHT * 1.5,
     borderRadius: WIDTH * 0.05,
     alignItems: 'center',
     top: HEIGHT * 0.06,
     backgroundColor: '#f8e9e5',
+    overflow: 'hidden',
   },
   card: {
     width: '92%',
@@ -119,18 +129,52 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e9e5',
     resizeMode: 'contain',
   },
+  container: {
+    position: 'absolute',
+    bottom: 50,
+    left: -18,
+    height: '10%',
+    paddingTop: 10,
+    padding: layout.spacing,
+  },
+  ccard: {
+    borderRadius: layout.borderRadius,
+    width: layout.width,
+    height: layout.height,
+    padding: layout.spacing,
+    backgroundColor: '#faf1ee',
+    elevation: 10,
+    opacity: 1,
+    position: 'absolute',
+    bottom: 100,
+    left: 30,
+    // overflow: 'hidden',
+    // resizeMode: 'cover',
+  },
+  cname: {fontSize: 32, fontWeight: '600', color: '#000'},
+  subtitle: {fontSize: 12, fontWeight: '600', color: '#000'},
+  cardContent: {
+    gap: layout.spacing,
+    marginBottom: layout.spacing,
+    color: '#000',
+  },
+  row: {
+    flexDirection: 'row',
+    columnGap: layout.spacing / 2,
+    alignItems: 'center',
+  },
   //BottomBar
   bottombar: {
     width: WIDTH * 0.5,
     height: HEIGHT * 0.1,
     borderRadius: 350,
     transform: [{scaleX: 2.5}],
-    opacity: 0.8,
+    opacity: 0.95,
     backgroundColor: '#faf1ee',
     zIndex: 10,
     position: 'absolute',
     left: '25%',
-    top: '-3%',
+    top: '-4%',
   },
   bottom_main: {
     flexDirection: 'row',

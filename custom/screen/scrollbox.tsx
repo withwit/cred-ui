@@ -28,7 +28,7 @@ export default function ScrollBox() {
           rubberBandFactor: 0.4,
           clamp: [0, 0],
         });
-      } else if (displacement.value < -styles.device.height / 2.5) {
+      } else if (displacement.value < -styles.device.height / 1.2) {
         displacement.value = withTiming(-styles.device.height / 8);
       } else {
         displacement.value = displacement.value;
@@ -42,12 +42,12 @@ export default function ScrollBox() {
       <GestureDetector gesture={pan}>
         <Animated.View style={[styles.scrollbox, animatedStyles]}>
           <Image
-            style={{width: 850, top: -18, left: -20}}
+            style={{width: 350, top: -18}}
             source={require('../assets/line.png')}
           />
           <Image
-            style={{width: 40, height: 60, top: -40}}
-            source={require('../assets/line.png')}
+            style={{width: 100, height: 50, top: -30, resizeMode: 'contain'}}
+            source={require('../assets/header.png')}
           />
 
           <View style={[styles.card, {top: -30}]}>
@@ -293,7 +293,46 @@ export default function ScrollBox() {
               />
             </View>
           </View>
+          <View style={[styles.card, {top: 30}]}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                top: 10,
+                zIndex: 1,
+              }}>
+              <Text style={styles.heading}>EXPLORE CLUB</Text>
+            </View>
+            <View
+              style={[
+                styles.card,
+                {
+                  backgroundColor: '#faf1ee',
+                },
+              ]}>
+              <Image
+                style={[
+                  {
+                    height: 450,
+                    width: 450,
+                    resizeMode: 'contain',
+                    opacity: 1,
+                    left: -20,
+                    top: -20,
+                  },
+                ]}
+                source={require('../assets/explore.png')}
+              />
+            </View>
+          </View>
 
+          <Text
+            style={[
+              styles.heading,
+              {paddingTop: 20, letterSpacing: 3, left: 10},
+            ]}>
+            BILL FORECAST
+          </Text>
           <CCard />
         </Animated.View>
       </GestureDetector>
