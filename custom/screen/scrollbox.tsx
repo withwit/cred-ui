@@ -11,7 +11,6 @@ import Animated, {
   withDecay,
   withTiming,
 } from 'react-native-reanimated';
-import Cards from 'react-credit-cards-2';
 import CCard from '../components/ccardwithdrum';
 
 export default function ScrollBox() {
@@ -46,8 +45,8 @@ export default function ScrollBox() {
             source={require('../assets/line.png')}
           />
           <Image
-            style={{width: 100, height: 50, top: -30, resizeMode: 'contain'}}
-            source={require('../assets/header.png')}
+            style={{width: 50, height: 50, top: -30, resizeMode: 'cover'}}
+            source={require('../assets/line.png')}
           />
 
           <View style={[styles.card, {top: -30}]}>

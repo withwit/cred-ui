@@ -1,5 +1,4 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {rgbaColor} from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;

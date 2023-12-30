@@ -38,7 +38,7 @@ const layout = {
 var Drum = require('react-native-sound');
 Drum.setCategory('Playback');
 var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, error => {
-  drum.play();
+  // drum.play();
 });
 
 function Card({

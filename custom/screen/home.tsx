@@ -1,14 +1,13 @@
-import {Image, StatusBar, Text, View} from 'react-native';
+import {Image, View} from 'react-native';
 import styles from '../styles';
 import TopBar from './topbar';
 import BottomBarItems from './bottombaritems';
 import ScrollBox from './scrollbox';
 import OfferPill from '../components/offerpill';
 
-export default function Main() {
+export default function Home() {
   return (
     <View style={styles.main}>
-      <StatusBar backgroundColor={styles.safeareaview.backgroundColor} />
       <Image
         style={[
           {
