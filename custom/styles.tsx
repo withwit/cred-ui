@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
 
   offerpill: {
     width: WIDTH * 0.24,
+    height: '3%',
     borderRadius: WIDTH * 0.1,
     backgroundColor: '#f8e9e5',
     elevation: 4,

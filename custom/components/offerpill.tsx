@@ -59,7 +59,7 @@ export default function OfferPill() {
                     width: styles.device.width * 0.042,
                     height: styles.device.width * 0.042,
                     left: -styles.device.width * 0.015,
-                    top: -styles.device.width * 0.013,
+                    top: -styles.device.width * 0.01,
                   },
                 ]}
                 source={offer.path}
