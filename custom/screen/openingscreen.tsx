@@ -1,32 +1,42 @@
 import {View, Image} from 'react-native';
 import React, {useEffect} from 'react';
-import styles from '../styles';
 
-export default function OpeningScreen({navigation}) {
+export default function OpeningScreen({navigation}): any {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('main');
       var Drum = require('react-native-sound');
       Drum.setCategory('Playback');
-      var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, error => {
+      var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, () => {
         drum.play();
+      });
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'main',
+          },
+        ],
       });
     }, 0);
   }, []);
+
   return (
     <View
       style={{
         width: '100%',
-        height: '100%',
+        height: '110%',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         backgroundColor: '#000',
+        top: -10,
       }}>
       <Image
         style={{
-          resizeMode: 'contain',
+          resizeMode: 'cover',
           width: '100%',
-          height: '100%',
+          height: '50%',
+          position: 'absolute',
         }}
         source={require('../assets/op.gif')}
       />

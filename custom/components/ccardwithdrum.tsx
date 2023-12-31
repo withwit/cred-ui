@@ -37,9 +37,7 @@ const layout = {
 };
 var Drum = require('react-native-sound');
 Drum.setCategory('Playback');
-var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, error => {
-  // drum.play();
-});
+var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, () => {});
 
 function Card({
   info,
@@ -165,19 +163,16 @@ function Card({
 
 export default function CCard() {
   const sharedval = useSharedValue(0);
-  const _drum = args => {
-    console.log(args);
+  const _drum = () => {
     drum.play();
   };
   const pan = Gesture.Pan()
     .onChange(event => {
       if (event.velocityY > 0 && event.velocityY > 5000) {
-        console.log('   PAN UP');
         sharedval.value = withTiming(data.length - 1, {
           duration: 300,
         });
       } else if (event.velocityY < 0 && event.velocityY < -6500) {
-        console.log('   PAN DOWN');
         sharedval.value = withTiming(0, {
           duration: 300,
         });
@@ -187,23 +182,20 @@ export default function CCard() {
   const flingup = Gesture.Fling()
     .direction(Directions.UP)
     .onStart(() => {
-      console.log('fling up', sharedval.value);
       if (sharedval.value <= 0) {
         return;
       }
-      runOnJS(_drum)('YEAAAAH');
+      runOnJS(_drum)();
       sharedval.value = withTiming(sharedval.value - 1, {duration: 500});
     });
 
   const flingdown = Gesture.Fling()
     .direction(Directions.DOWN)
     .onStart(() => {
-      console.log('fling down', sharedval.value);
-
       if (sharedval.value >= data.length - 1) {
         return;
       }
-      runOnJS(_drum)('YEAAAAH');
+      runOnJS(_drum)();
       sharedval.value = withTiming(sharedval.value + 1, {
         duration: 500,
       });
