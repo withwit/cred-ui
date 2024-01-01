@@ -1,5 +1,5 @@
 # cred-ui
-# A beautiful UI inspiration from CRED- A credit card repayment app.
+## A beautiful light variant UI inspiration from CRED- A credit card repayment app.
 <br>
 <br>
 
