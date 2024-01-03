@@ -1,15 +1,9 @@
-import {View, Image} from 'react-native';
+import {View, Image, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
 
 export default function OpeningScreen({navigation}): any {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('main');
-      var Drum = require('react-native-sound');
-      Drum.setCategory('Playback');
-      var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, () => {
-        drum.play();
-      });
       navigation.reset({
         index: 0,
         routes: [
@@ -17,6 +11,11 @@ export default function OpeningScreen({navigation}): any {
             name: 'main',
           },
         ],
+      });
+      var Drum = require('react-native-sound');
+      Drum.setCategory('Playback');
+      var drum = new Drum('drum.mp3', Drum.MAIN_BUNDLE, () => {
+        drum.play();
       });
     }, 0);
   }, []);
@@ -31,6 +30,7 @@ export default function OpeningScreen({navigation}): any {
         backgroundColor: '#000',
         top: -10,
       }}>
+      <StatusBar hidden backgroundColor={'#000'} animated={true} />
       <Image
         style={{
           resizeMode: 'cover',

@@ -22,7 +22,7 @@ import {
 } from 'react-native-vision-camera';
 import {useState} from 'react';
 
-export default function BottomBarItems() {
+export default function BottomBarItems(openbbbar: any) {
   const {hasPermission, requestPermission} = useCameraPermission();
   if (!hasPermission) {
     requestPermission();
@@ -73,13 +73,13 @@ export default function BottomBarItems() {
   const setbarheight = useAnimatedStyle(() => ({
     height:
       openbbar.value == true
-        ? withTiming('65%', {duration: 200})
+        ? withTiming('60%', {duration: 200})
         : withTiming('15%', {duration: 300}),
   }));
   const openclosecontact = useAnimatedStyle(() => ({
     height:
       showcontacts.value == true
-        ? withTiming('100%', {duration: 400})
+        ? withTiming('105%', {duration: 400})
         : withTiming('0%', {duration: 700}),
     opacity:
       showcontacts.value == true
@@ -91,27 +91,45 @@ export default function BottomBarItems() {
     if (showcontacts.value == true) {
       showcontacts.value = false;
       tooglecam(true);
-    } else {
-      openbbar.value = openbbar.value == true ? false : true;
-      if (cam == true) {
-        tooglecam(false);
-      } else {
-        tooglecam(true);
-      }
+      return;
     }
+    if (cam == true) {
+      tooglecam(false);
+    } else {
+      tooglecam(true);
+    }
+    openbbar.value = openbbar.value ? false : true;
   };
   const opencontacts = () => {
-    console.log('pressed');
     if (cam == true) {
       tooglecam(false);
       showcontacts.value = true;
       return;
     }
-    openbbar.value = openbbar.value == true ? false : true;
     showcontacts.value = showcontacts.value == true ? false : true;
+    openbbar.value = openbbar.value == true ? false : true;
   };
   return (
     <Animated.View style={[styles.bottom_main, setbarheight]}>
+      <TouchableNativeFeedback
+        onPress={() => {
+          openbbar.value = false;
+          tooglecam(false);
+          showcontacts.value = false;
+        }}>
+        <Animated.View
+          style={{
+            backgroundColor: 'green',
+            opacity: 0,
+            height: 500,
+            width: '100%',
+            position: 'absolute',
+            top: '-70%',
+            zIndex: -10,
+          }}
+        />
+      </TouchableNativeFeedback>
+
       <Animated.View style={[styles.bottombarItems]}>
         <TouchableNativeFeedback onPress={scan}>
           <View style={{alignItems: 'center', top: '4%'}}>

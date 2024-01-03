@@ -4,12 +4,17 @@ import TopBar from './topbar';
 import BottomBarItems from './bottombaritems';
 import ScrollBox from './scrollbox';
 import OfferPill from '../components/offerpill';
+import Animated, {useSharedValue} from 'react-native-reanimated';
 
 export default function Main() {
+  var openbbar = useSharedValue(false);
   return (
     <SafeAreaView style={styles.safeareaview}>
-      <View style={styles.main}>
-        <StatusBar backgroundColor={styles.safeareaview.backgroundColor} />
+      <Animated.View style={styles.main}>
+        <StatusBar
+          animated={true}
+          backgroundColor={styles.safeareaview.backgroundColor}
+        />
         <Image
           style={[
             {
@@ -25,8 +30,8 @@ export default function Main() {
         />
         <TopBar />
         <OfferPill />
-        <ScrollBox />
-        <BottomBarItems />
+        <ScrollBox openbbar={openbbar} />
+        <BottomBarItems openbbar={openbbar} />
         <Image
           style={[
             {
@@ -40,7 +45,7 @@ export default function Main() {
           ]}
           source={require('../assets/footer.png')}
         />
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }

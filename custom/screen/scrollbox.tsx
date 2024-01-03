@@ -6,6 +6,7 @@ import {
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 import Animated, {
+  SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withDecay,
@@ -13,11 +14,14 @@ import Animated, {
 } from 'react-native-reanimated';
 import CCard from '../components/ccardwithdrum';
 
-export default function ScrollBox() {
+export default function ScrollBox(openbbar: any) {
   const displacement = useSharedValue(0);
+
   const pan = Gesture.Pan()
     .onChange(event => {
       displacement.value += event.changeY;
+      openbbar.value = true;
+      console.log(openbbar.value);
     })
     .onFinalize(event => {
       if (displacement.value > styles.device.height / 20) {
